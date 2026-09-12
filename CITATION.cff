@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "operant-reward-seeking: A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice"
+message: "If you use these MED-PC programs, automated data extraction tools, or analysis code, please cite this repository."
+type: software
+
+authors:
+  - family-names: "La Greca"
+    given-names: "Filippo"
+    affiliation: "Department of Pharmacological and Biomolecular Sciences (DiSFeB), University of Milan"
+
+  - family-names: "Italia"
+    given-names: "Maria"
+    affiliation: "Department of Pharmacological and Biomolecular Sciences (DiSFeB), University of Milan"
+
+repository-code: "https://github.com/filos93/operant-reward-seeking"
+license: MIT
+date-released: 2026-09-12
+version: 1.0.0
