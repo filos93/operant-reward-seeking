@@ -1,0 +1,199 @@
+\ TITLE
+\ REWARD-SEEKING_FR8_RIGHT
+
+\ TASK DESCRIPTION
+\ In this FR8 right-active-port version of the operant reward-seeking task, the right nose-poke port is designated as the active Food-related (reinforced) port, whereas the left 
+\ nose-poke port is the inactive NoFood-related (non-reinforced) one. Eight (8) nose-pokes at the active port result in delivery of one food pellet (fixed-ratio 8 schedule; FR8). 
+\ Responses at the inactive port have no programmed consequence. Following delivery of a reward, a 5 s timeout period is initiated, during which no additional rewards can be obtained. 
+\ This interval allows the animal to collect the delivered pellet before resuming task performance. Each behavioral session lasts 40 min, and a maximum of 400 food rewards can be 
+\ delivered within a session.
+
+\ INPUTS
+^LeftNP = 1     \ Left Nose-Poke (NP), here NoFood-related or inactive response
+^RightNP = 2     \ Right Nose-Poke (NP), here Food-related or active response
+^Head_entries = 5 \ Head entries to the food magazine (ie, pellet dispenser)
+
+\ OUTPUTS
+^Pellet = 7
+
+\ VARIABLES
+\ C      = Ratio response Counter: needed to check FR criterion
+\ D(J)   = Trial number
+\ D(J+1) = Food-related response
+\ D(J+2) = NoFood-related response
+\ D(J+3) = Food-related response latency in trial
+\ D(J+4) = NoFood-related response latency in trial
+\ D(J+5) = Food-related response time in session
+\ D(J+6) = NoFood-related response time in session
+\ F(0)   = Total head entries
+\ F(1)   = Total Food-related NPs: differente from W(0) when FR changes
+\ F(2)   = Total (pellet) rewards
+\ S      = Session timer
+\ W(0)   = Total Food-related responses
+\ W(1)   = Total NoFood-related responses
+\ W(2)   = Total task responses
+\ W(3)   = Total percentage (%) of Food-related responses
+\ W(4)   = Total percentage (%) of NoFood-related responses
+\ W(5)   = Preference Index (PI)
+\ W(6)   = Average Food-related response latency
+\ W(7)   = Average NoFood-related response latency
+\ W(8)   = Total Food-related response latency: needed to calculate Avg Food-related latency
+\ W(9)   = Total NoFood-related response latency: : needed to calculate Avg NoFood-related latency
+
+\ CONTROL VARIABLES WITH ALIASES
+Var_Alias Session Length (min)            = A(0)    \ Default = 40 minutes
+Var_Alias Max Rewards                     = A(1)     \ Default = 400 max rewards
+Var_Alias Fixed Ratio Value               = A(2)      \ Default = 8 units
+Var_Alias Time Out Following Reward (sec) = A(3)       \ Default = 5 seconds
+
+\ DIMESIONS FOR VARIABLES
+DIM A = 4  \ Dimension for default variables
+DIM D = 5000 \ Dimension for trial-by-trial data
+DIM S = 2     \ Dimension for session timer
+DIM V = 2      \ Dimension for trial number and latency count
+DIM W = 9       \ Dimension for storing Food- or NoFood-related responses count
+DIM F = 2        \ Dimension for storing head entries, NPs, rewards count
+
+\ CONSTANTS
+^Session      = 0
+^MaxRewards   = 1
+^FRVal        = 2
+^TimeOut      = 3
+^TimeOutTicks = 4
+
+\ S VARIABLES
+^S_Trial = 0   \ NOTE: belongs to V array (see above)
+^S_Latency = 1  \ NOTE: belongs to V array (see above)
+^S_Timer = 2
+
+\ Z-PULSES OR LINKS
+^Z_Reward = 1
+^Z_Lat_Food = 3
+^Z_Lat_NonFood = 4
+
+\ OUTPUT FILE SETUP
+DISKCOLUMNS = 7
+DISKFORMAT = 6.2
+
+\***************************************************
+\                   SETUP + MAIN PROGRAM
+\***************************************************
+S.S.1,
+S1, \ DEFAULT VARIABLES
+  0.01": SET A(^Session) = 40, A(^MaxRewards) = 400;
+         SET A(^FRVal) = 8, A(^TimeOut) = 5;
+         SET D(J+7) = -987.987 ---> S2
+
+S2, \ SESSION START
+  #START: CLEAR 1,200;
+          SET A(^TimeOutTicks) = A(^TimeOut) * 1"; \ TimeOut setup
+          SHOW 2,Session, S(^S_Timer) ---> S3
+
+  1": SHOW 1,Session Length,A(^Session), 2,Max Rewards,A(^MaxRewards);
+      SHOW 3,FR Value,A(^FRVal),         4,Time Out,A(^TimeOut) ---> SX
+
+S3, \ SESSION TIMER SHOW + CHECK
+  0.01": SHOW 2,Session,S(^S_Timer)/60;
+         IF S(^S_Timer)/60 >=  A(^Session) [@EndSession, @ContinueTiming]
+            @End: ---> S9
+            @Cont: ---> S4
+
+S4, \ FIRST TRIAL
+  0.01": ADD V(^S_Trial);
+         SET D(J) = V(^S_Trial) ---> S5
+
+S5, \ NPs & RESPONSE ASSIGNMENTS
+  8#R^RightNP: ADD D(J+1), W(0); \ Need 8 NPs to get a response
+               SET C = C + 8;
+               SET D(J+5) = S(^S_Timer)/60; \ Response time in session
+               Z^Z_Lat_Food; \ Link to calculate latency
+               IF C >= A(^FRVal) [@FR_Value_Met, @False] \ FR criterion check
+                     @FR_Value_Met: SET C = 0; Z^Z_Reward; ADD F(2) ---> S6   \ Link to deliver pellet-reward
+                     @False: ---> SX
+  
+  #R^LeftNP: ADD D(J+2), W(1);
+             SET D(J+6) = S(^S_Timer)/60;
+             Z^Z_Lat_NoFood ---> S6
+
+  #R^Head_entries: ADD F(0) ---> SX
+
+S6, \ TIMEOUT AFTER REWARD
+  A(^TimeOutTicks)#T: IF F(2) >= A(^MaxRewards) [@End, @Cont] \ MaxRewards check
+                         @End: ---> S9
+                         @Cont: ---> S7
+
+S7, \ SESSION LENGTH CHECK
+  0.01": IF S(^S_Timer)/60 >=  A(^Session) [@EndSession, @ContinueTiming]
+            @End: ---> S9
+            @Cont: ---> S8
+
+S8, \ RESET FOR NEXT TRIAL
+  0.01": SET  J = J + 7; \ Add new row for new trial
+         SET  F(1) = W(0) * 8; \ To caclulate total Food-related NPs when FR schedule changes
+         SET  W(2) = W(0) + W(1);
+         SET  W(3) = W(0) * 100 / W(2);   
+         SET  W(4) = W(1) * 100 / W(2);    
+         SET  W(5) = (W(0)-W(1)) / W(2);
+         SET  D(J+1) = 0, D(J+2) = 0, D(J+7) = -987.987 ---> S4
+
+S9, \ AUTOMATIC SAVING & SESSION STOP
+  2": ---> STOPABORTFLUSH
+
+\***************************************************
+\               FOOD REWARD
+\***************************************************
+S.S.2,
+S1, \ REWARD DELIVERY
+  #Z^Z_Reward: ON ^Pellet ---> S2
+
+S2,
+  0.05": OFF ^Pellet ---> S1
+
+\***************************************************
+\              RESPONSE LATENCY TIMER
+\***************************************************
+S.S.3,
+S1, \ LINK FOR LATENCY
+  #START: ---> S2
+
+S2, \ LATENCY SETUP
+  0.01": SET V(^S_Latency) = 0 ---> S3
+
+S3, \ LATENCY SETUP & COUNT
+  0.01": SET V(^S_Latency) = V(^S_Latency) + 0.01 ---> SX
+
+  #Z^Z_Lat_Food: SET D(J+3) = V(^S_Latency);       
+                 SET W(8) = W(8) + V(^S_Latency); 
+                 SET W(6) = W(8) / W(0) ---> S2
+
+
+  #Z^Z_Lat_NonFood:  SET D(J+4) = V(^S_Latency);          
+                     SET W(9) = W(9) + V(^S_Latency); 
+                     SET W(7) = W(9) / W(1) ---> S2
+
+\***************************************************
+\                  UPDATE DISPLAY
+\***************************************************
+S.S.4,
+
+S1,
+  #START: ---> S2
+
+S2,
+  1": SHOW 1,Trial,D(J), 3,Food,D(J+1), 4,NoFood,D(J+2);
+      SHOW 5,Lat_Food,D(J+3), 6,Lat_NoFood,D(J+4), 7,Time_Food,D(J+5); 
+      SHOW 8,Time_NoFood,D(J+6), 9,Tot_Food,W(0), 10,Tot_NoFood,W(1);
+      SHOW 11,Tot_Resp,W(2), 12,%_Food,W(3), 13,%_NoFood,W(4); 
+      SHOW 14,Avg_Lat_Food,W(6), 15,Avg_Lat_NoFood,W(7);
+      SHOW 16,Head_entries,F(0), 17,Tot_Food NPs,F(1) ---> S2
+
+\***************************************************
+\                   SESSION TIMER
+\***************************************************
+S.S.5,
+
+S1,
+  #START: SET S(^S_Timer) = 0 ---> S2
+
+S2,
+  1": ADD S(^S_Timer); SHOW 2,Session,S(^S_Timer)/60 ---> SX
