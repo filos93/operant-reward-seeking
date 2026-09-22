@@ -1,0 +1,74 @@
+9
+8
+Edit Mode
+1
+2
+3
+4
+5
+6
+7
+8
+Header Titles
+StartDate
+Subject
+Experiment
+
+
+
+
+
+Header Elements
+!StartDate/
+Subject
+Experiment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Column Titles
+Trial number
+Food response
+NoFood response
+Food latency in trial
+NoFood latency in trial
+Food response session time
+NoFood response session time
+Head entry session time
+1st Column Element
+D(0)
+D(1)
+D(2)
+D(3)
+D(4)
+D(5)
+D(6)
+D(7)
+Increment
+8
+8
+8
+8
+8
+8
+8
+8
+Last Column Element
+D(5000)
+D(5000)
+D(5000)
+D(5000)
+D(5000)
+D(5000)
+D(5000)
+D(5000)

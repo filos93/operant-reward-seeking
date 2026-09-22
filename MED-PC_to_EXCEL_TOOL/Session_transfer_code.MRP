@@ -1,0 +1,28 @@
+Subject
+Subject
+Group
+Group
+Experiment
+Experiment
+StartDate
+!StartDate/
+Food total responses
+W(0)
+NoFood total responses
+W(1)
+Total responses
+W(2)
+Food total % responses
+W(3)
+NoFood total % responses
+W(4)
+Preference Index (PI)
+W(5)
+Food average responselatency
+W(6)
+NoFood average responselatency
+W(7)
+Total head entries
+F(0)
+Total Food NPs
+F(1)
