@@ -74,7 +74,7 @@ The paradigm records granular array data across session-level totals, time-stamp
 
 ## Repository Structure
 
-```text
+``text
 operant-reward-seeking/
 │
 ├── README.md
@@ -90,8 +90,10 @@ operant-reward-seeking/
 │   └── ...
 │
 ├── MED-PC_to_EXCEL_TOOL/
-│   ├── Session_code.png
-│   └── Trial-by-trial_code.png
+│   ├── Session_transfer_code.MRP
+│   ├── Session_transfer_image.png
+│   ├── Trial-by-trial_transfer_code.MTP
+│   └── Trial-by-trial_transfer_image.png
 │
 ├── FIGURES/
 │   └── Experimental_Workflow.png
