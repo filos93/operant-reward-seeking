@@ -1,7 +1,7 @@
 # Operant Reward-Seeking Task for Mice
 A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice 
 
-<img width="1000" height="600" alt="Fig 1" src="./IMG/Experimental-workflow.png" />
+<img width="1000" height="600" alt="Experimental-workflow" src="./IMG/Experimental-workflow.png" />
 
 > ⚠️ If you use the protocol, MED-PC programs, behavioral analysis workflows, figures, or associated code contained in this repository, please cite the associated publication and repository (see Citation section below).
 
