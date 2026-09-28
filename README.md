@@ -1,7 +1,7 @@
 # Operant Reward-Seeking Task for Mice
 A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice 
 
-<img width="1000" height="600" alt="graphical-abstract" src="https://github.com/user-attachments/assets/8c02fdeb-e109-476f-bc83-2ea9d10cc5b5" />
+<img width="1000" height="600" alt="Fig 1" src="https://github.com/user-attachments/assets/91c82ad6-7cf3-428a-a495-e13c91e90beb" />
 
 > ⚠️ If you use the protocol, MED-PC programs, behavioral analysis workflows, figures, or associated code contained in this repository, please cite the associated publication and repository (see Citation section below).
 
@@ -74,7 +74,7 @@ The paradigm records granular array data across session-level totals, time-stamp
 
 ## Repository Structure
 
-``text
+```text
 operant-reward-seeking/
 │
 ├── README.md
@@ -92,16 +92,11 @@ operant-reward-seeking/
 ├── MED-PC_to_EXCEL_TOOL/
 │   ├── Session_transfer_code.MRP
 │   ├── Session_transfer_image.png
-│   ├── Trial-by-trial_transfer_code.MTP
-│   └── Trial-by-trial_transfer_image.png
-│
-├── FIGURES/
-│   └── Experimental_Workflow.png
+│   └── Supplementary_Fig1.png
 │
 ├── RESULTS/
 │   ├── MED-PC_Output-file.txt
-│   ├── Session_Excel_results.png
-│   └── Trial-by-trial_Excel_results.png
+│   └── Supplementary_Fig.2.png
 
 ```
 
@@ -160,7 +155,7 @@ If you use this repository, MED-PC procedures, or data extraction scripts, pleas
 La Greca, F. (2026). operant-reward-seeking: A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice (Version 1.0.0). GitHub. https://github.com/filos93/operant-reward-seeking
 
 ### Associated Publication
-Italia M., Salvadè M., La Greca F., Gardoni F., Scheggia D.. (2026). [A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice]. *[Jove]*, [Volume]([Issue]), [Pages]. https://doi.org/[DOI]
+Italia M., Salvadè M., La Greca F., Zianni E., Gardoni F., Scheggia D.. (2026). [A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice]. *[Jove]*, [Volume]([Issue]), [Pages]. https://doi.org/[DOI]
 
 ---
 
