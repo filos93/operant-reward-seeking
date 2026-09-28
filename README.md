@@ -92,11 +92,11 @@ operant-reward-seeking/
 ├── MED-PC_to_EXCEL_TOOL/
 │   ├── Session_transfer_code.MRP
 │   ├── Session_transfer_image.png
-│   └── Supplementary_Fig1.png
+│   └── Supplementary fig. 1.png
 │
 ├── RESULTS/
 │   ├── MED-PC_Output-file.txt
-│   └── Supplementary_Fig.2.png
+│   └── Supplementary fig. 2.png
 
 ```
 
