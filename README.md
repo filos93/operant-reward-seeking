@@ -91,7 +91,7 @@ operant-reward-seeking/
 │
 ├── MED-PC_to_EXCEL_TOOL/
 │   ├── Session_transfer_code.MRP
-│   ├── Session_transfer_image.png
+│   ├── Trial-by-trial_transfer_code.MTP
 │   └── Supplementary fig. 1.png
 │
 ├── RESULTS/
