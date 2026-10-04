@@ -99,6 +99,7 @@ operant-reward-seeking/
 │
 ├── RESULTS/
 │   ├── MED-PC_Output-file.txt
+│   ├── 2024-07-24_13h10m_Subject A38-1 scr.txt
 │   └── Supplementary fig. 2.png
 
 ```
