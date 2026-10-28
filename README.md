@@ -1,5 +1,5 @@
 # Operant Reward-Seeking Task for Mice
-A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice 
+An Adaptable Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice
 
 <img width="1000" height="600" alt="Experimental-workflow" src="./IMG/Experimental-workflow.png" />
 
@@ -9,15 +9,15 @@ A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Beha
 
 ## Overview
 
-This repository contains all experimental resources, control code, and analysis pipelines required to implement a standardized operant food-seeking paradigm in mice, designed for the quantitative assessment of motivational drive and reward-seeking behavior. The paradigm uses a two-port operant chamber in which animals learn an action-reward contingency. Responses at the active nose-poke port result in delivery of a palatable food reward, whereas responses at the inactive port have no programmed consequence.
+This repository contains all experimental resources, control code, and analysis pipelines required to implement an adaptable operant food-seeking paradigm in mice, designed for the quantitative assessment of motivational drive and reward-seeking behavior. The paradigm uses a two-port operant chamber in which animals learn an action-reward contingency. Responses at the active nose-poke port result in delivery of a palatable food reward, whereas responses at the inactive port have no programmed consequence.
 
 The task is designed to:
 
 - Assess acquisition of an action-reward contingency.
 - Quantify reward-seeking behavior in the form of food-seeking behavior.
 - Measure behavioral performance under increasing response demands (ie, increasing FR schedule).
-- Assess behavioral flexibility using reversal learning (see Experimental Workflow in `FIGURES/`).
-- Enable integration with fiber photometry recordings (see `MPC-CODE/FIBER/` and Experimental Workflow in `FIGURES/`).
+- Assess behavioral flexibility using reversal learning (see Experimental Workflow in `IMG/`).
+- Enable integration with fiber photometry recordings (see `MPC-CODE/FIBER/` and Experimental Workflow in `IMG/`).
 - Support studies of neuropsychiatric and neurological disease models.
 
 ---
@@ -28,9 +28,9 @@ The task is designed to:
 
 1. Establish baseline body weight.
 2. Implement food restriction (85–90% free-feeding body weight).
-3. Train mice under a Fixed Ratio 1 (FR1) schedule.
-4. Increase response requirements using FR4 and FR8 schedules.
-5. Optionally perform reversal learning by reversing active and inactive nose-poke ports (see Experimental Workflow in `FIGURES/`).
+3. Train/test mice under a Fixed Ratio 1 (FR1) schedule.
+4. Optionally increase response requirements using FR4 and FR8 schedules.
+5. Optionally perform reversal learning by reversing active and inactive nose-poke ports (see Experimental Workflow in `IMG/`).
 
 ### Optional fiber photometry integration
 
@@ -45,7 +45,7 @@ The task is designed to:
 
 ## Behavioral Measures & MED-PC Variables
 
-The paradigm records granular array data across session-level totals, time-stamped trial arrays, and computed performance indices (see MPC-CODE for more). Fiber photometry can be combined with the behavioral task to align real-time neural dynamics with discrete operant events.
+The paradigm records granular array data across session-level totals, time-stamped trial arrays, and computed performance indices (see `MPC-CODE/` for more). Fiber-photometry recordings represent an optional extension and can be combined with the behavioral task to align real-time neural dynamics with discrete operant events.
 
 ### Task Acquisition & Discrimination
 
@@ -111,28 +111,26 @@ operant-reward-seeking/
 The repository includes behavioral-control programs (w/ or w/o fiber photometry) for:
 
 - FR1 schedules 
-- FR4 schedules
-- FR8 schedules
+- FR4 schedules (optional)
+- FR8 schedules (optional)
 
 Programs are provided for both:
 
 - Left-active port configurations (ie, Food-related responses are on the Left nose-poke)
 - Right-active port configurations (ie, Food-related responses are on the Right nose-poke)
 
-Fiber photometry-compatible versions include TTL synchronization signals for acquisition triggering.
+Fiber photometry-compatible versions (optional, see `MPC-CODE/FIBER/`) include TTL synchronization signals for acquisition triggering.
 
 ---
 
 ## Data Analysis & Processing Workflows
 
-The images included in `MED-PC_to_EXCEL_TOOL/` show how to automate the extraction and processing of raw MED-PC data arrays into structured tabular outputs for statistical analysis.
+The code and the images included in `MED-PC_to_EXCEL_TOOL/` show how to automate the extraction and processing of raw MED-PC data arrays into structured (EXcel) tabular outputs for statistical analysis.
 
 ### Behavioral Data Pipeline
-- **Session-Level Metrics:** Automated calculation of total responses, reward delivery, and Preference Index.
-- **Discrimination Analysis:** Quantification of active vs. inactive response ratios.
+- **Session-Level Metrics:** Automated calculation of total responses, rewards earned, and Preference Index.
+- **Discrimination Analysis:** Quantification of active vs inactive response ratios.
 - **Temporal & Response Dynamics:** Extraction of trial-by-trial latencies and within-session response distribution.
-- **Visualizations:** Generation of cumulative response curves, within-session raster plots, and longitudinal acquisition curves across FR/PR sessions.
-- **Group Comparisons:** Structuring of multi-subject datasets for downstream statistical software (e.g., GraphPad Prism, R, Python).
 
 ---
 
@@ -156,10 +154,26 @@ This standardized operant framework might also be suitable for neuroscientists i
 If you use this repository, MED-PC procedures, or data extraction scripts, please cite both the software repository and the associated publication.
 
 ### Software Repository Citation
-La Greca, F. (2026). operant-reward-seeking: A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice (Version 1.0.0). GitHub. https://github.com/filos93/operant-reward-seeking
+La Greca, F., Italia, M. (2026). operant-reward-seeking: An Adaptable Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice (Version 1.0.0). GitHub: [https://github.com/filos93/operant-reward-seeking]
 
 ### Associated Publication
-Italia M., Salvadè M., La Greca F., Zianni E., Gardoni F., Scheggia D.. (2026). [A Standardized Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice]. *[Jove]*, [Volume]([Issue]), [Pages]. https://doi.org/[DOI]
+Italia M., Salvadè M., La Greca F., Zianni E., Gardoni F., Scheggia D.. (2026). [An adaptable Operant Paradigm for Assessing Motivation and Reward-Seeking Behavior in Mice]. *[Journal]*, [Volume]([Issue]), [Pages]. https://doi.org/[DOI]
+
+---
+
+## Contact & Support
+
+### Repository Maintainer
+**Filippo La Greca**  
+Department of Pharmacological and Biomolecular Sciences (DiSFeB)  
+University of Milan  
+*For questions regarding the code, MED-PC scripts, or converter tools, please open a GitHub Issue.*
+
+### Corresponding Author / Principal Investigator
+**Maria Italia**  
+Department of Pharmacological and Biomolecular Sciences (DiSFeB)  
+University of Milan  
+*For scientific inquiries only.*
 
 ---
 
@@ -173,20 +187,4 @@ See the LICENSE file for details.
 
 ## Acknowledgements
 
-This repository was developed to support standardized assessment of reward-seeking behavior and integration of behavioral and neural measurements in preclinical neuroscience research.
-
----
-
-## Contact & Support
-
-### Repository Maintainer
-**Filippo La Greca**  
-Department of Pharmacological and Biomolecular Sciences (DiSFeB)  
-University of Milan  
-*For questions regarding the code, MED-PC scripts, or converter tools, please open a GitHub Issue or contact the maintainer directly.*
-
-### Corresponding Author / Principal Investigator
-**Maria Italia**  
-Department of Pharmacological and Biomolecular Sciences (DiSFeB)  
-University of Milan  
-*For scientific inquiries regarding the study or experimental design.*
+TBD.
